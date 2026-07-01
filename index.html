@@ -100,22 +100,34 @@
 
   /* ── VIDEOS — portrait 9:16 ── */
   #videos { background: var(--bg); }
+  .video-category { margin-bottom: 3rem; }
+  .video-category:last-child { margin-bottom: 0; }
+  .video-category-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
   .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
   .video-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.25s; }
   .video-card:hover { border-color: var(--blue-dim); }
 
   .video-embed { width: 100%; aspect-ratio: 9/16; background: #000; position: relative; overflow: hidden; }
-  .video-embed video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-embed iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-  .video-info { padding: 1rem 1.25rem; }
-  .video-info h3 { font-family: var(--serif); font-weight: 400; font-size: 0.98rem; margin-bottom: 0.3rem; line-height: 1.3; }
-  .video-info p { font-size: 0.78rem; color: var(--muted); }
-  .video-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); border: 1px solid rgba(245,197,24,0.25); padding: 0.18rem 0.55rem; margin-top: 0.55rem; border-radius: 2px; }
+  /* VIDEO LIBRARY / DRIVE LINK */
+  .video-library { margin-top: 3rem; padding: 2.5rem; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .video-library-text h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text); }
+  .video-library-text p { font-size: 0.85rem; color: var(--muted); max-width: 420px; }
+  .video-library-link { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 1.75rem; background: transparent; border: 1px solid rgba(245,197,24,0.35); color: var(--text); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; transition: border-color 0.2s, color 0.2s; white-space: nowrap; }
+  .video-library-link:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* UI/UX */
+  #uiux { background: var(--bg2); }
+  .uiux-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .uiux-box { background: var(--bg3); border: 1px solid var(--border); aspect-ratio: 4/3; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .uiux-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .uiux-placeholder { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 
   /* EXPERIENCE */
-  #experience { background: var(--bg2); }
+  #experience { background: var(--bg3); }
   .exp-cards { display: flex; flex-direction: column; gap: 1.5rem; }
-  .exp-card { background: var(--bg3); border: 1px solid var(--border); padding: 2rem 2.5rem; display: grid; grid-template-columns: 160px 1fr; gap: 2.5rem; align-items: start; }
+  .exp-card { background: var(--bg2); border: 1px solid var(--border); padding: 2rem 2.5rem; display: grid; grid-template-columns: 160px 1fr; gap: 2.5rem; align-items: start; }
   .exp-period { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--blue); margin-bottom: 0.4rem; font-weight: 500; }
   .exp-company { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
   .exp-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(245,197,24,0.1); border: 1px solid rgba(245,197,24,0.2); color: var(--blue); padding: 0.2rem 0.5rem; margin-top: 0.6rem; border-radius: 2px; }
@@ -156,6 +168,7 @@
     .skills-halves { grid-template-columns: 1fr; }
     .exp-card { grid-template-columns: 1fr; gap: 0.5rem; }
     .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .uiux-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
@@ -166,6 +179,7 @@
     .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .video-library { flex-direction: column; align-items: flex-start; }
   }
 
   /* ── LIGHTBOX ── */
@@ -209,6 +223,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#videos">Video</a></li>
+    <li><a href="#uiux">UI/UX</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -346,84 +361,117 @@
     <h2 class="section-title">Video Edits</h2>
     <div class="section-line"></div>
     <p class="work-intro">Social ads, reels, and brand content — product campaigns for e-commerce clients.</p>
-    <div class="video-grid">
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/test-9-free offer.mov" type="video/quicktime">
-            <source src="Videos/test-9-free offer.mov" type="video/mp4">
-          </video>
+    <div class="video-category">
+      <p class="video-category-label">E-commerce</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="video-info">
-          <h3>FREE No Pull Harness</h3>
-          <span class="video-tag">Reel</span>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/test-12-free offer.mov" type="video/quicktime">
-            <source src="Videos/test-12-free offer.mov" type="video/mp4">
-          </video>
+    <div class="video-category">
+      <p class="video-category-label">E-commerce</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="video-info">
-          <h3>FREE No Pull Harness</h3>
-          <span class="video-tag">Social Ad</span>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_6" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/test-13-hook-2.mp4" type="video/mp4">
-          </video>
+    <div class="video-category">
+      <p class="video-category-label">Podcasts</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_7" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="video-info">
-          <h3>No Pull Leash</h3>
-          <span class="video-tag">Reel</span>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_8" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_9" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/test-18-hook-2.mp4" type="video/mp4">
-          </video>
+    <div class="video-category">
+      <p class="video-category-label">Animated</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_10" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="video-info">
-          <h3>No Pull Leash</h3>
-          <span class="video-tag">Social Ad</span>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_11" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_12" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/titanium-pan-1-hook-1.mov" type="video/quicktime">
-            <source src="Videos/titanium-pan-1-hook-1.mov" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-info">
-          <h3>Titanium Pan</h3>
-          <span class="video-tag">Brand Video</span>
-        </div>
+    <div class="video-library">
+      <div class="video-library-text">
+        <h3>Want to see more?</h3>
+        <p>Visit this site to see the whole collection of video edits.</p>
       </div>
+      <a href="https://drive.google.com/YOUR_DRIVE_LINK_HERE" target="_blank" rel="noopener" class="video-library-link">View Full Library ↗</a>
+    </div>
+  </div>
+</section>
 
-      <div class="video-card">
-        <div class="video-embed">
-          <video autoplay muted loop playsinline controls>
-            <source src="Videos/titanium-pan-2-hook-3.mov" type="video/quicktime">
-            <source src="Videos/titanium-pan-2-hook-3.mov" type="video/mp4">
-          </video>
-        </div>
-        <div class="video-info">
-          <h3>Titanium Pan</h3>
-          <span class="video-tag">Brand Video</span>
-        </div>
+<!-- UI/UX -->
+<section id="uiux">
+  <div class="container">
+    <p class="section-tag">Design</p>
+    <h2 class="section-title">UI/UX Work</h2>
+    <div class="section-line"></div>
+    <div class="uiux-grid">
+      <div class="uiux-box">
+        <span class="uiux-placeholder">Image 1</span>
       </div>
-
+      <div class="uiux-box">
+        <span class="uiux-placeholder">Image 2</span>
+      </div>
+      <div class="uiux-box">
+        <span class="uiux-placeholder">Image 3</span>
+      </div>
     </div>
   </div>
 </section>
@@ -438,7 +486,7 @@
 
       <div class="exp-card">
         <div>
-          <p class="exp-period">Sep 2025 — Present</p>
+          <p class="exp-period">Sep 2021 — Present</p>
           <p class="exp-company">OnlineJobs PH · Remote</p>
           <span class="exp-badge">Freelance</span>
         </div>
