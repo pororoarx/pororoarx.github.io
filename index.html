@@ -71,10 +71,11 @@
 
   /* SKILLS */
   #skills { background: var(--bg); }
-  .skills-halves { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .skills-halves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .skills-panel { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; }
   .skills-half-title { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
   .skill-block { margin-bottom: 1.4rem; }
+  .skill-block:last-child { margin-bottom: 0; }
   .skill-block-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .skill-tag { font-size: 0.78rem; padding: 0.3rem 0.75rem; background: rgba(245,197,24,0.07); border: 1px solid rgba(245,197,24,0.2); color: var(--text); border-radius: 2px; }
@@ -119,18 +120,22 @@
 
   /* UI/UX */
   #uiux { background: var(--bg2); }
-  .uiux-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .uiux-subtitle { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--text); margin: 0 0 1.5rem; }
+  h3.uiux-subtitle:not(:first-of-type) { margin-top: 3.5rem; }
+  .uiux-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1rem; }
   .uiux-box{
     position:relative;
     overflow:hidden;
     border-radius:12px;
     aspect-ratio:16/10;
-    background:#111;}
+    background:#111;
+    border: 1px solid var(--border);}
   .uiux-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .uiux-placeholder { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .uiux-carousel { position: relative; }
   .uiux-carousel-track{
     display:flex;
+    height: 100%;
     transition:transform .35s ease;}
   .uiux-carousel-track img{
     flex:0 0 100%;
@@ -163,6 +168,9 @@
 
     opacity:0;
 }
+
+.uiux-carousel-prev{ left:12px; }
+.uiux-carousel-next{ right:12px; }
 
 .uiux-box:hover
 .uiux-carousel-prev,
@@ -206,6 +214,19 @@
 
 }
 
+  /* Mobile UI/UX — sized like an actual phone screen, not a stretched desktop card */
+  .uiux-grid-mobile {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 240px));
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .uiux-grid-mobile .uiux-box {
+    aspect-ratio: 9 / 19.5;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 1px var(--bg3);
+  }
+
   /* EXPERIENCE */
   #experience { background: var(--bg3); }
   .exp-cards { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -232,6 +253,7 @@
   .link-label { font-size: 0.88rem; }
   .link-url { font-size: 0.78rem; color: var(--blue); }
   .arrow { color: var(--blue-dim); font-size: 1.2rem; }
+  .contact-based { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 1.5rem; }
 
   footer { padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--muted); }
 
@@ -401,7 +423,7 @@
         </div>
       </div>
       <div class="skills-panel">
-        <p class="skills-half-title">&nbsp;Creative &amp; Media</p>
+        <p class="skills-half-title">&nbsp;Creatives</p>
         <div class="skill-block">
           <p class="skill-block-label">Video &amp; Motion</p>
           <div class="skill-tags">
@@ -421,18 +443,6 @@
           </div>
         </div>
         <div class="skill-block">
-          <p class="skill-block-label">AI Generation Tools</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Higgsfield</span><span class="skill-tag">Google Veo</span><span class="skill-tag">Flow</span><span class="skill-tag">Runway</span><span class="skill-tag">Kling</span><span class="skill-tag">HeyGen</span><span class="skill-tag">ElevenLabs</span>
-          </div>
-        </div>
-        <div class="skill-block">
-          <p class="skill-block-label">AI Scriptwriting</p>
-          <div class="skill-tags">
-            <span class="skill-tag">ChatGPT</span><span class="skill-tag">Claude</span><span class="skill-tag">Gemini</span>
-          </div>
-        </div>
-        <div class="skill-block">
           <p class="skill-block-label">Marketing &amp; Strategy</p>
           <div class="skill-tags">
             <span class="skill-tag">Content Strategy</span><span class="skill-tag">Social Media</span><span class="skill-tag">Analytics</span><span class="skill-tag">Client Communication</span>
@@ -442,6 +452,21 @@
           <p class="skill-block-label">Productivity</p>
           <div class="skill-tags">
             <span class="skill-tag">MS Office</span><span class="skill-tag">Google Workspace</span><span class="skill-tag">ClickUp</span><span class="skill-tag">Frame.io</span><span class="skill-tag">Loom</span><span class="skill-tag">Google Ads</span><span class="skill-tag">Meta Ads</span><span class="skill-tag">Atria</span><span class="skill-tag">Slack</span><span class="skill-tag">Notion</span><span class="skill-tag">Trello</span>
+          </div>
+        </div>
+      </div>
+      <div class="skills-panel">
+        <p class="skills-half-title">&nbsp;AI Tools</p>
+        <div class="skill-block">
+          <p class="skill-block-label">AI Generation Tools</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Higgsfield</span><span class="skill-tag">Google Veo</span><span class="skill-tag">Flow</span><span class="skill-tag">Runway</span><span class="skill-tag">Kling</span><span class="skill-tag">HeyGen</span><span class="skill-tag">ElevenLabs</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <p class="skill-block-label">AI Scriptwriting</p>
+          <div class="skill-tags">
+            <span class="skill-tag">ChatGPT</span><span class="skill-tag">Claude</span><span class="skill-tag">Gemini</span>
           </div>
         </div>
       </div>
@@ -573,7 +598,6 @@
 </section>
 
 <!-- UI/UX -->
-<!-- UI/UX -->
 <section id="uiux">
   <div class="container">
     <p class="section-tag">Design</p>
@@ -613,18 +637,6 @@
           <img src="DESKTOP/DESKTOP-3/desktop-5.webp" alt="Desktop project 3" loading="lazy">
           <img src="DESKTOP/DESKTOP-3/desktop-9.webp" alt="Desktop project 3" loading="lazy">
           <img src="DESKTOP/DESKTOP-3/desktop-10.webp" alt="Desktop project 3" loading="lazy">
-        </div>
-        <button class="uiux-carousel-prev">‹</button>
-        <button class="uiux-carousel-next">›</button>
-        <div class="uiux-carousel-dots"></div>
-      </div>
-
-      <div class="uiux-box uiux-carousel" data-index="0">
-        <div class="uiux-carousel-track">
-          <img src="DESKTOP/DESKTOP-4/desktop-11.webp" alt="Desktop project 4" loading="lazy">
-          <img src="DESKTOP/DESKTOP-4/desktop-12.webp" alt="Desktop project 4" loading="lazy">
-          <img src="DESKTOP/DESKTOP-4/desktop-13.webp" alt="Desktop project 4" loading="lazy">
-          <img src="DESKTOP/DESKTOP-4/desktop-14.webp" alt="Desktop project 4" loading="lazy">
         </div>
         <button class="uiux-carousel-prev">‹</button>
         <button class="uiux-carousel-next">›</button>
@@ -729,10 +741,19 @@
       </div>
 
     </div>
-    <div class="exp-resume-cta">
-      <p class="exp-resume-text">Want to know more about me?</p>
-      <a href="assets/resume.pdf" class="exp-resume-btn" target="_blank" rel="noopener">View My Resume</a>
-    </div>
+      <div class="video-library">
+        <div class="video-library-text">
+          <h3>Want to know more about me?</h3>
+          <p>Download or view my complete resume to learn more about my experience, skills, and projects.</p>
+        </div>
+
+        <a href="assets/resume.pdf"
+          target="_blank"
+          rel="noopener"
+          class="video-library-link">
+          View My Resume ↗
+        </a>
+      </div>
   </div>
 </section>
 
