@@ -123,6 +123,26 @@
   .uiux-box { background: var(--bg3); border: 1px solid var(--border); aspect-ratio: 4/3; overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .uiux-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .uiux-placeholder { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .uiux-carousel { position: relative; }
+  .uiux-carousel-track { display: flex; width: 100%; height: 100%; transition: transform 0.3s ease; }
+  .uiux-carousel-track img { width: 100%; height: 100%; flex-shrink: 0; object-fit: cover; }
+  .uiux-carousel-prev, .uiux-carousel-next {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); color: white; border: none;
+    font-size: 1.5rem; width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; z-index: 2;
+  }
+  .uiux-carousel-prev { left: 8px; }
+  .uiux-carousel-next { right: 8px; }
+  .uiux-carousel-dots {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 2;
+  }
+  .uiux-carousel-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.5); cursor: pointer;
+  }
+  .uiux-carousel-dots span.active { background: white; }
 
   /* EXPERIENCE */
   #experience { background: var(--bg3); }
@@ -246,15 +266,15 @@
         <span class="stat-label">Years in UI/UX & Development</span>
       </div>
       <div class="stat-cell">
-        <span class="stat-num">20+</span>
-        <span class="stat-label">Data & IoT Projects Built</span>
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Video Editing & Motion Graphics</span>
       </div>
       <div class="stat-cell">
         <span class="stat-num">10+</span>
         <span class="stat-label">Interactive Dashboards & Systems</span>
       </div>
       <div class="stat-cell">
-        <span class="stat-num">60+</span>
+        <span class="stat-num">100+</span>
         <span class="stat-label">Creative Assets Designed</span>
       </div>
     </div>
@@ -335,6 +355,19 @@
         <div class="skill-block">
           <p class="skill-block-label">UI/UX &amp; Web Design</p>
           <div class="skill-tags">
+            <span class="skill-tag">Figma</span><span class="skill-tag">SketchUp</span><span class="skill-tag">Adobe XD</span><span class="skill-tag">Sketch</span><span class="skill-tag">Webflow</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <p class="skill-block-label">AI Generation Tools</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Higgsfield</span><span class="skill-tag">Google Veo</span><span class="skill-tag">Flow</span><span class="skill-tag">Runway</span><span class="skill-tag">Kling</span><span class="skill-tag">HeyGen</span><span class="skill-tag">ElevenLabs</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <p class="skill-block-label">AI Scriptwriting</p>
+          <div class="skill-tags">
+            <span class="skill-tag">ChatGPT</span><span class="skill-tag">Claude</span><span class="skill-tag">Gemini</span>
           </div>
         </div>
         <div class="skill-block">
@@ -346,7 +379,7 @@
         <div class="skill-block">
           <p class="skill-block-label">Productivity</p>
           <div class="skill-tags">
-            <span class="skill-tag">MS Office</span><span class="skill-tag">Google Workspace</span>
+            <span class="skill-tag">MS Office</span><span class="skill-tag">Google Workspace</span><span class="skill-tag">ClickUp</span><span class="skill-tag">Frame.io</span><span class="skill-tag">Loom</span><span class="skill-tag">Google Ads</span><span class="skill-tag">Meta Ads</span><span class="skill-tag">Atria</span><span class="skill-tag">Slack</span><span class="skill-tag">Notion</span><span class="skill-tag">Trello</span>
           </div>
         </div>
       </div>
@@ -426,6 +459,27 @@
     </div>
 
     <div class="video-category">
+      <p class="video-category-label">VSL</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_10" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_11" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_12" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-category">
       <p class="video-category-label">Animated</p>
       <div class="video-grid">
         <div class="video-card">
@@ -457,22 +511,98 @@
 </section>
 
 <!-- UI/UX -->
+<!-- UI/UX -->
 <section id="uiux">
   <div class="container">
     <p class="section-tag">Design</p>
     <h2 class="section-title">UI/UX Work</h2>
     <div class="section-line"></div>
+
+    <h3 class="uiux-subtitle">Desktop / Web</h3>
     <div class="uiux-grid">
-      <div class="uiux-box">
-        <span class="uiux-placeholder">Image 1</span>
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="DESKTOP/DESKTOP-1/desktop-1.webp" alt="Desktop project 1" loading="lazy">
+          <img src="DESKTOP/DESKTOP-1/desktop-2.webp" alt="Desktop project 1" loading="lazy">
+          <img src="DESKTOP/DESKTOP-1/desktop-6.webp" alt="Desktop project 1" loading="lazy">
+          <img src="DESKTOP/DESKTOP-1/desktop-7.webp" alt="Desktop project 1" loading="lazy">
+          <img src="DESKTOP/DESKTOP-1/desktop-8.webp" alt="Desktop project 1" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
       </div>
-      <div class="uiux-box">
-        <span class="uiux-placeholder">Image 2</span>
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="DESKTOP/DESKTOP-2/desktop-3.webp" alt="Desktop project 2" loading="lazy">
+          <img src="DESKTOP/DESKTOP-2/desktop-4.webp" alt="Desktop project 2" loading="lazy">
+          <img src="DESKTOP/DESKTOP-2/desktop-15.webp" alt="Desktop project 2" loading="lazy">
+          <img src="DESKTOP/DESKTOP-2/desktop-16.webp" alt="Desktop project 2" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
       </div>
-      <div class="uiux-box">
-        <span class="uiux-placeholder">Image 3</span>
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="DESKTOP/DESKTOP-3/desktop-5.webp" alt="Desktop project 3" loading="lazy">
+          <img src="DESKTOP/DESKTOP-3/desktop-9.webp" alt="Desktop project 3" loading="lazy">
+          <img src="DESKTOP/DESKTOP-3/desktop-10.webp" alt="Desktop project 3" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
       </div>
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="DESKTOP/DESKTOP-4/desktop-11.webp" alt="Desktop project 4" loading="lazy">
+          <img src="DESKTOP/DESKTOP-4/desktop-12.webp" alt="Desktop project 4" loading="lazy">
+          <img src="DESKTOP/DESKTOP-4/desktop-13.webp" alt="Desktop project 4" loading="lazy">
+          <img src="DESKTOP/DESKTOP-4/desktop-14.webp" alt="Desktop project 4" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
+      </div>
+
     </div>
+
+    <h3 class="uiux-subtitle">Mobile</h3>
+    <div class="uiux-grid uiux-grid-mobile">
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="MOBILE/MOBILE-1/mobile-1.webp" alt="Mobile project 1" loading="lazy">
+          <img src="MOBILE/MOBILE-1/mobile-3.webp" alt="Mobile project 1" loading="lazy">
+          <img src="MOBILE/MOBILE-1/mobile-6.webp" alt="Mobile project 1" loading="lazy">
+          <img src="MOBILE/MOBILE-1/mobile-7.webp" alt="Mobile project 1" loading="lazy">
+          <img src="MOBILE/MOBILE-1/mobile-10.webp" alt="Mobile project 1" loading="lazy">
+          <img src="MOBILE/MOBILE-1/mobile-11.webp" alt="Mobile project 1" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
+      </div>
+
+      <div class="uiux-box uiux-carousel" data-index="0">
+        <div class="uiux-carousel-track">
+          <img src="MOBILE/MOBILE-2/mobile-2.webp" alt="Mobile project 2" loading="lazy">
+          <img src="MOBILE/MOBILE-2/mobile-4.webp" alt="Mobile project 2" loading="lazy">
+          <img src="MOBILE/MOBILE-2/mobile-5.webp" alt="Mobile project 2" loading="lazy">
+          <img src="MOBILE/MOBILE-2/mobile-8.webp" alt="Mobile project 2" loading="lazy">
+          <img src="MOBILE/MOBILE-2/mobile-9.webp" alt="Mobile project 2" loading="lazy">
+        </div>
+        <button class="uiux-carousel-prev">‹</button>
+        <button class="uiux-carousel-next">›</button>
+        <div class="uiux-carousel-dots"></div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -537,6 +667,10 @@
       </div>
 
     </div>
+    <div class="exp-resume-cta">
+      <p class="exp-resume-text">Want to know more about me?</p>
+      <a href="assets/resume.pdf" class="exp-resume-btn" target="_blank" rel="noopener">View My Resume</a>
+    </div>
   </div>
 </section>
 
@@ -549,20 +683,20 @@
         <h2>Open to opportunities<br><em style="font-style:italic;color:var(--blue)">& collaborations</em></h2>
         <div class="section-line"></div>
         <p>Whether you're looking for a developer, designer, content creator — or all three — I'd love to hear from you.</p>
-        <div class="contact-detail">
-          <div class="contact-item"><span>Email</span><span>kengarrido.legaspi&#64;gmail.com</span></div>
-          <div class="contact-item"><span>Phone</span><span>+63 947 181 2845</span></div>
-          <div class="contact-item"><span>Based</span><span>Pasig City, Metro Manila</span></div>
-        </div>
       </div>
       <div>
-        <p class="section-tag" style="margin-top:0.5rem">Find Me Online</p>
+        <p class="section-tag" style="margin-top:0.5rem">Connect With Me</p>
         <div class="contact-links">
           <div class="contact-link-card" onclick="window.location='mai'+'lto:'+'kengarrido.legaspi'+'@'+'gmail.com'" style="cursor:pointer;">
-            <div><p class="link-label">Send Email</p><p class="link-url">kengarrido.legaspi&#64;gmail.com</p></div>
+            <div><p class="link-label">Email</p><p class="link-url">kengarrido.legaspi&#64;gmail.com</p></div>
+            <span class="arrow">↗</span>
+          </div>
+          <div class="contact-link-card" onclick="window.location='https://wa.me/639471812845'" style="cursor:pointer;">
+            <div><p class="link-label">WhatsApp</p><p class="link-url">+63 947 181 2845</p></div>
             <span class="arrow">↗</span>
           </div>
         </div>
+        <p class="contact-based">Based in Pasig City, Metro Manila</p>
       </div>
     </div>
   </div>
@@ -677,6 +811,33 @@ function setActiveNav() {
 
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
+
+// ── UI/UX Carousels ──
+document.querySelectorAll('.uiux-carousel').forEach(carousel => {
+  const track = carousel.querySelector('.uiux-carousel-track');
+  const images = track.querySelectorAll('img');
+  const dotsContainer = carousel.querySelector('.uiux-carousel-dots');
+  let index = 0;
+
+  images.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('span');
+
+  function goTo(i) {
+    index = (i + images.length) % images.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(d => d.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  carousel.querySelector('.uiux-carousel-prev').addEventListener('click', () => goTo(index - 1));
+  carousel.querySelector('.uiux-carousel-next').addEventListener('click', () => goTo(index + 1));
+});
 
 </script>
 
