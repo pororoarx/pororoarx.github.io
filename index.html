@@ -1159,28 +1159,25 @@ carousel.addEventListener("mouseleave",()=>{
 // ── Video rail ── videos stream from the public Drive portfolio folder
 (() => {
   const V = {
-    ugc: { label: 'E-commerce UGC', items: [
-      ['1_BF7SJPS2A1TN4_u841VhwiddBcRHyB4', 'Aussie Glow leather balm', '1:08'], ['1cpRqNxtHWb5QlUxbG8HaN0xnhGxMjie6', 'KangaFeet insoles', '0:42'],
-      ['1dSu37eU6kgeW5AjsKxSS2ZjfDLHbdBD5', 'No-pull dog harness', '1:30'], ['1xCGZcJzGwGVrUehJUMIaQN7y2-T-Mz5z', 'PawlyLab harness', '0:53'],
-      ['1vovG0kmuNZv4qB2C6N8q7Ho3a6RypqSH', 'Titanium cookware', '2:23'], ['1RPjL9u7KIu2di1uK0UQgrOhV3ZMsDpNM', 'CarePets eye wipes', '1:03'],
-      ['1_eMdKBNo-BqBFWpVZmNBoDu36erph6l9', 'DinoBrush kids toothbrush (Italian)', '0:26']] },
-    skincare: { label: 'Skincare Mini-VSL', items: [
-      ['1kzM-5vOavL1ZGU3ohuJkDlYds1-rYzjg', 'Collagen ampoule, clinic story', '1:51'], ['1wZC6r7gqGBPnPxifnxCHZdmlX1DL860P', 'Collagen ampoule, couple testimonial', '2:13'],
-      ['1v0nKQnNIa3uIYjTE6gNKrbk7zHQeePrm', 'Collagen ampoule, street interview', '1:43'], ['1nKlzzs-xMbobhEA7xsWYRLDr8CG3U4SJ', 'Collagen ampoule, ranking review', '3:19']] },
-    story: { label: 'Animated Story Ads', items: [
-      ['1zfFu0ZOCkK5592UBkqTWS2MJCrg6tZ06', 'Story ad, the switch', '5:03'], ['1BNGT2oVlGLQDAAgo-7k3nMl3JbMoT-uX', 'Story ad, the reunion', '4:13'],
-      ['1_y1wpF0OW9JYY259xn9Zrf4lEvsMX5Zi', 'Story ad, the stylist', '6:47'], ['1EXLEN4cVCnOcoTcdYW0-0S9oO_YwQH8G', 'Song ad, original track', '']] },
-    character: { label: 'Character Animation', items: [
-      ['1BP5iB4DR2dSxWa3beWtZo-w8l1PyTiL4', 'Talking skin character', '3:09'], ['15ErgwR6anlvEbZQSF44HWFtdAIj3WK3Z', 'Courtroom product trial', '2:26'],
-      ['1w0FszSlhW2M85vlHrAvi_plNr_uNNgvu', 'Dog harness animation', ''], ['1VCGcb8dMzHv4UiFj24lVEHsl9b2u16PV', 'Dog harness animation II', ''],
-      ['1rZpLwcGyPnky072KCe_lfvsdyeoi8EU4', 'Fitness cartoon short', '0:29']] },
-    vsl: { label: 'Long-form VSL', items: [
-      ['1w5yz4r4NzetczBk9CBFRt1-PuskfG4P0', 'Foot massager VSL', '6:59'], ['1ponD8tGvB0ijF8z2oKOqRDvySmwR7bkf', 'Vascular doctor VSL', '6:25']] }
+    ecom: { label: 'E-commerce', items: [
+      ['1_BF7SJPS2A1TN4_u841VhwiddBcRHyB4', '1:08'], ['1cpRqNxtHWb5QlUxbG8HaN0xnhGxMjie6', '0:42'], ['1dSu37eU6kgeW5AjsKxSS2ZjfDLHbdBD5', '1:30'],
+      ['1vovG0kmuNZv4qB2C6N8q7Ho3a6RypqSH', '2:23'], ['1RPjL9u7KIu2di1uK0UQgrOhV3ZMsDpNM', '1:03'], ['1_eMdKBNo-BqBFWpVZmNBoDu36erph6l9', '0:26']] },
+    minivsl: { label: 'Mini VSL', items: [
+      ['15L1zJYiUUIJorJ1-inWolYRe_J3HE2kj', '2:50'], ['1kzM-5vOavL1ZGU3ohuJkDlYds1-rYzjg', '1:51'], ['1wZC6r7gqGBPnPxifnxCHZdmlX1DL860P', '2:13'],
+      ['1v0nKQnNIa3uIYjTE6gNKrbk7zHQeePrm', '1:43'], ['1nKlzzs-xMbobhEA7xsWYRLDr8CG3U4SJ', '3:19']] },
+    songs: { label: 'Songs', items: [
+      ['1F1TXsxKYYZW1dNjlryu3VFsecFeR6FCY', '10:16'], ['1nCBEiHYXKl7-8bkx-LSA3smWhvMKjhYo', '9:55'], ['1zfFu0ZOCkK5592UBkqTWS2MJCrg6tZ06', '5:03'],
+      ['1BNGT2oVlGLQDAAgo-7k3nMl3JbMoT-uX', '4:13'], ['1_y1wpF0OW9JYY259xn9Zrf4lEvsMX5Zi', '6:47']] },
+    character: { label: 'Character', items: [
+      ['1BP5iB4DR2dSxWa3beWtZo-w8l1PyTiL4', '3:09'], ['15ErgwR6anlvEbZQSF44HWFtdAIj3WK3Z', '2:26'], ['1w0FszSlhW2M85vlHrAvi_plNr_uNNgvu', ''],
+      ['1VCGcb8dMzHv4UiFj24lVEHsl9b2u16PV', ''], ['1rZpLwcGyPnky072KCe_lfvsdyeoi8EU4', '0:29']] },
+    longvsl: { label: 'Long VSL', items: [
+      ['1w5yz4r4NzetczBk9CBFRt1-PuskfG4P0', '6:59'], ['1I0y8n7adPk0C9fHQ6RNvsl3yeGmRDtFr', '7:03'], ['1ponD8tGvB0ijF8z2oKOqRDvySmwR7bkf', '6:25']] }
   };
   const $ = id => document.getElementById(id);
   const rail = $('vidRail'), wrap = rail.parentElement, back = $('vidBack'), fwd = $('vidFwd'), tabs = $('vidTabs');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active = 'ugc', current = [], pos = 0, opener = null, token = 0;
+  let active = 'ecom', current = [], pos = 0, opener = null, token = 0;
 
   function arrows() {
     back.disabled = rail.scrollLeft <= 2;
@@ -1189,15 +1186,14 @@ carousel.addEventListener("mouseleave",()=>{
   }
   function build() {
     current = V[active].items; rail.innerHTML = ''; rail.scrollLeft = 0;
-    current.forEach(([id, title, dur], i) => {
+    current.forEach(([id, dur], i) => {
+      const label = V[active].label + ' video ' + (i + 1);
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'stash-item vid'; b.setAttribute('aria-label', 'Play ' + title);
+      b.type = 'button'; b.className = 'stash-item vid'; b.setAttribute('aria-label', 'Play ' + label);
       b.style.setProperty('--d', Math.min(i * 70, 560) + 'ms');
-      const img = new Image(); img.src = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w640'; img.alt = title; img.loading = i < 4 ? 'eager' : 'lazy'; img.referrerPolicy = 'no-referrer';
+      const img = new Image(); img.src = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w640'; img.alt = label; img.loading = i < 4 ? 'eager' : 'lazy'; img.referrerPolicy = 'no-referrer';
       const play = document.createElement('span'); play.className = 'vid-play';
-      const cap = document.createElement('span'); cap.className = 'stash-cap'; cap.innerHTML = '<b></b><span></span>';
-      cap.firstChild.textContent = title; cap.lastChild.textContent = V[active].label;
-      b.append(img, play, cap);
+      b.append(img, play);
       if (dur) { const d = document.createElement('span'); d.className = 'vid-dur'; d.textContent = dur; b.append(d); }
       b.addEventListener('click', () => { opener = b; open(i); });
       rail.appendChild(b);
@@ -1214,9 +1210,9 @@ carousel.addEventListener("mouseleave",()=>{
 
   const viewer = $('vidViewer'), frame = $('vidFrame');
   function show(i) {
-    pos = (i + current.length) % current.length; const [id, title] = current[pos];
-    frame.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" allow="autoplay; fullscreen" allowfullscreen title="' + title.replace(/"/g, '') + '"></iframe>';
-    $('vidTitle').textContent = title; $('vidPos').textContent = (pos + 1) + ' / ' + current.length;
+    pos = (i + current.length) % current.length; const [id] = current[pos];
+    frame.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" allow="autoplay; fullscreen" allowfullscreen title="' + V[active].label + ' video"></iframe>';
+    $('vidTitle').textContent = V[active].label; $('vidPos').textContent = (pos + 1) + ' / ' + current.length;
   }
   function open(i) { show(i); viewer.classList.add('open'); document.body.style.overflow = 'hidden'; $('vidClose').focus(); }
   function close() { viewer.classList.remove('open'); frame.innerHTML = ''; document.body.style.overflow = ''; opener?.focus(); }
