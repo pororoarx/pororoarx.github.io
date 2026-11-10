@@ -229,25 +229,45 @@
 
   /* GRAPHICS RAIL */
   #ads { background: var(--bg2); }
-  .stash-tabs { display: flex; gap: 1.6rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; }
+  .stash-tabs { position: relative; display: flex; gap: 1.6rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; }
   .stash-tab { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0.55rem 0; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
   .stash-tab:hover { color: var(--text); }
-  .stash-tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+  .stash-tab[aria-selected="true"] { color: var(--blue); }
+  .stash-ink { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--blue); border-radius: 2px; transition: transform 0.45s cubic-bezier(.2,.8,.2,1), width 0.45s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
   .stash-rail-wrap { --h: 400px; position: relative; }
-  .stash-rail { display: flex; align-items: center; gap: 1rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 2px 2px 4px; }
+  .stash-rail-wrap::before, .stash-rail-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 56px; z-index: 2; pointer-events: none; transition: opacity 0.3s; }
+  .stash-rail-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg2), transparent); opacity: 0; }
+  .stash-rail-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg2), transparent); }
+  .stash-rail-wrap.scrolled::before { opacity: 1; }
+  .stash-rail-wrap.at-end::after { opacity: 0; }
+  .stash-rail { display: flex; align-items: center; gap: 1rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 14px 2px 18px; perspective: 1200px; }
   .stash-rail::-webkit-scrollbar { display: none; }
-  .stash-item { flex: none; height: var(--h); aspect-ratio: 4 / 5; padding: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg3); cursor: zoom-in; scroll-snap-align: start; animation: stashIn 0.4s ease both; transition: border-color 0.2s; }
+  .stash-item { --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 50%; position: relative; flex: none; height: var(--h); aspect-ratio: 4 / 5; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg3); cursor: zoom-in; scroll-snap-align: start; animation: stashIn 0.7s cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d, 0ms); transform: translateY(0) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s, border-color 0.25s; will-change: transform; }
+  .stash-item.leaving { animation: stashOut 0.22s ease forwards; }
+  .stash-item::after { content: ''; position: absolute; inset: 0; background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255,255,255,0.16), transparent 45%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .stash-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 3.4rem 1rem 0.95rem; text-align: left; background: linear-gradient(to top, rgba(5,8,16,0.96) 0%, rgba(5,8,16,0.82) 45%, transparent 100%); transform: translateY(100%); transition: transform 0.4s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+  .stash-cap b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.02rem; color: #fff; line-height: 1.25; }
+  .stash-cap span { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
   .stash-item.wide { aspect-ratio: 16 / 9; }
   .stash-item.tall { aspect-ratio: 3 / 4; }
-  .stash-item:hover, .stash-item:focus-visible { border-color: var(--blue); outline: none; }
-  .stash-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stash-item:hover, .stash-item:focus-visible { border-color: var(--blue); outline: none; transform: translateY(-8px) rotateX(var(--rx)) rotateY(var(--ry)); box-shadow: 0 26px 50px -22px rgba(0,0,0,0.8), 0 18px 60px -34px rgba(245,197,24,0.55); }
+  .stash-item:hover::after { opacity: 1; }
+  .stash-item:hover .stash-cap, .stash-item:focus-visible .stash-cap { transform: none; }
+  .stash-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(.2,.8,.2,1); }
+  .stash-item:hover img { transform: scale(1.06); }
   .stash-rail-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; }
   .stash-count { font-size: 0.78rem; color: var(--muted); }
   .stash-arrows { display: flex; gap: 0.5rem; }
   .stash-arrow { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 1.15rem; line-height: 1; cursor: pointer; transition: border-color 0.2s, color 0.2s, opacity 0.2s; }
   .stash-arrow:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
   .stash-arrow:disabled { opacity: 0.3; cursor: default; }
-  @keyframes stashIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes stashIn { from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+  @keyframes stashOut { to { opacity: 0; transform: translateX(-28px) scale(0.97); filter: blur(4px); } }
+  @keyframes viewIn { from { opacity: 0; transform: scale(0.92) translateY(14px); } to { opacity: 1; transform: none; } }
+  .stash-reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1); transition-delay: var(--rd, 0ms); }
+  .stash-reveal.is-in { opacity: 1; transform: none; }
+  .stash-viewer.open img { animation: viewIn 0.45s cubic-bezier(.2,.8,.2,1) both; }
+  .stash-viewer { transition: opacity 0.3s; }
 
   .stash-viewer { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(5,8,16,0.96); backdrop-filter: blur(10px); align-items: center; justify-content: center; flex-direction: column; padding: 1.25rem 4.5rem; }
   .stash-viewer.open { display: flex; }
@@ -275,7 +295,8 @@
     .stash-next { right: calc(50% - 58px); top: auto; bottom: 1rem; transform: none; }
     .stash-viewer-cap { position: absolute; top: 1.6rem; left: 1rem; margin: 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .stash-item { animation: none; } .stash-rail { scroll-behavior: auto; } }
+  @media (hover: none) { .stash-cap { transform: none; padding-top: 1.8rem; } }
+  @media (prefers-reduced-motion: reduce) { .stash-item, .stash-item.leaving, .stash-viewer.open img { animation: none; } .stash-item, .stash-item:hover, .stash-item img, .stash-item:hover img { transform: none; transition: none; } .stash-reveal { opacity: 1; transform: none; transition: none; } .stash-ink { transition: none; } .stash-rail { scroll-behavior: auto; } }
 
   /* EXPERIENCE */
   #experience { background: var(--bg3); }
@@ -1032,23 +1053,29 @@ carousel.addEventListener("mouseleave",()=>{
   const B = { makeup: 'Sinta', supplements: 'Nodwell', shoes: 'Takbo', dogs: 'Bantay', skincare: 'Ulan' };
   const TABS = {
     photoreal: { label: 'Photoreal', items: [
+      ['tala-packaging', 'Tala cold brew', 'Packaging', 'tall'], ['hiraya-packaging', 'Hiraya hair oil', 'Packaging', 'tall'], ['dapit-packaging', 'Dapit candle', 'Packaging', 'tall'], ['himig-packaging', 'Himig One speaker', 'Packaging', 'tall'], ['lutong-packaging', 'Lutong chips', 'Packaging', 'tall'], ['tala-ad', 'Tala cold brew', 'Ad', 'tall'], ['hiraya-ad', 'Hiraya hair oil', 'Ad', 'tall'], ['dapit-ad', 'Dapit candle', 'Ad', 'tall'], ['himig-ad', 'Himig One speaker', 'Ad', 'tall'], ['lutong-ad', 'Lutong chips', 'Ad', 'tall'],
       ['makeup-rl-ad-1', 'Sinta glaze lip tint', 'Ad', 'tall'], ['supplements-rl-packaging', 'Nodwell night gummies', 'Packaging', 'tall'], ['shoes-rl-product', 'Takbo Aero 1', 'Product', 'tall'],
       ['skincare-rl-packaging', 'Ulan barrier serum', 'Packaging', 'tall'], ['makeup-rl-ad-2', 'Sinta glaze lip tint', 'Ad', 'tall'], ['dogs-rl-packaging2', 'Bantay kibble', 'Packaging', 'tall'],
       ['skincare-rl-product', 'Ulan barrier serum', 'Product', 'tall'], ['makeup-rl-packaging', 'Sinta glaze lip tint', 'Packaging', 'tall'], ['shoes-rl-ad', 'Takbo Aero 1', 'Ad', 'tall'],
       ['supplements-rl-ad', 'Nodwell night gummies', 'Ad', 'tall'], ['makeup-rl-ad-3', 'Sinta glaze lip tint', 'Ad', 'tall'], ['dogs-rl-ad', 'Bantay kibble', 'Ad', 'tall'],
       ['makeup-rl-product', 'Sinta glaze lip tint', 'Product', 'tall'], ['makeup-rl-ad-4', 'Sinta glaze lip tint', 'Ad', 'tall']] },
     minimal: { label: 'Minimal', items: [
+      ['tala-minimal', 'Tala cold brew', 'Minimal ad', 'tall'], ['hiraya-minimal', 'Hiraya hair oil', 'Minimal ad', 'tall'], ['dapit-minimal', 'Dapit candle', 'Minimal ad', 'tall'], ['himig-minimal', 'Himig One speaker', 'Minimal ad', 'tall'], ['lutong-minimal', 'Lutong chips', 'Minimal ad', 'tall'],
       ['makeup-minimalist', 'Sinta lipstick', 'Ad'], ['dogs-minimalist', 'Bantay kibble', 'Ad'], ['skincare-minimalist', 'Ulan barrier serum', 'Ad'], ['shoes-minimalist', 'Takbo Aero 1', 'Ad'], ['supplements-minimalist', 'Nodwell night gummies', 'Ad']] },
     bold: { label: 'Bold', items: [
+      ['tala-bold', 'Tala cold brew', 'Bold ad', 'tall'], ['hiraya-bold', 'Hiraya hair oil', 'Bold ad', 'tall'], ['dapit-bold', 'Dapit candle', 'Bold ad', 'tall'], ['himig-bold', 'Himig One speaker', 'Bold ad', 'tall'], ['lutong-bold', 'Lutong chips', 'Bold ad', 'tall'],
       ['shoes-maximalist', 'Takbo Aero 1', 'Ad'], ['skincare-maximalist', 'Ulan barrier serum', 'Ad'], ['makeup-maximalist', 'Sinta lipstick', 'Ad'], ['dogs-maximalist', 'Bantay kibble', 'Ad'], ['supplements-maximalist', 'Nodwell night gummies', 'Ad']] },
     graphic: { label: 'Graphic', items: [
+      ['tala-graphic', 'Tala cold brew', 'Graphic ad', 'tall'], ['hiraya-graphic', 'Hiraya hair oil', 'Graphic ad', 'tall'], ['dapit-graphic', 'Dapit candle', 'Graphic ad', 'tall'], ['himig-graphic', 'Himig One speaker', 'Graphic ad', 'tall'], ['lutong-graphic', 'Lutong chips', 'Graphic ad', 'tall'],
       ['supplements-ad-1', 'Nodwell night gummies', 'Ad'], ['shoes-ad-1', 'Takbo Aero 1', 'Ad'], ['dogs-ad-1', 'Bantay kibble', 'Ad'], ['skincare-ad-1', 'Ulan barrier serum', 'Ad'], ['makeup-ad-1', 'Sinta lipstick', 'Ad'],
       ['supplements-ad-2', 'Nodwell night gummies', 'Ad'], ['shoes-ad-2', 'Takbo Aero 1', 'Ad'], ['dogs-ad-2', 'Bantay kibble', 'Ad'], ['skincare-ad-2', 'Ulan barrier serum', 'Ad'], ['makeup-ad-2', 'Sinta lipstick', 'Ad']] },
     specs: { label: 'Product Specs', items: [
+      ['spec-tala', 'Tala cold brew', 'Product spec', 'wide'], ['spec-hiraya', 'Hiraya hair oil', 'Product spec', 'wide'], ['spec-dapit', 'Dapit candle', 'Product spec', 'wide'], ['spec-himig', 'Himig One speaker', 'Product spec', 'wide'], ['spec-lutong', 'Lutong chips', 'Product spec', 'wide'],
       ['spec-sinta-tube', 'Sinta glaze lip tint', 'Product spec', 'wide'], ['spec-nodwell-gummy', 'Nodwell night gummy', 'Product spec', 'wide'], ['spec-takbo-shoe', 'Takbo Aero 1', 'Product spec', 'wide'],
       ['spec-bantay-kibble', 'Bantay kibble', 'Product spec', 'wide'], ['spec-ulan-bottle', 'Ulan barrier serum', 'Product spec', 'wide'],
       ['spec-takbo-sole', 'Takbo Aero 1 midsole', 'Product spec', 'wide']] },
     cta: { label: 'CTAs', items: [
+      ['tala-cta', 'Tala cold brew', 'CTA', 'tall'], ['hiraya-cta', 'Hiraya hair oil', 'CTA', 'tall'], ['dapit-cta', 'Dapit candle', 'CTA', 'tall'], ['himig-cta', 'Himig One speaker', 'CTA', 'tall'], ['lutong-cta', 'Lutong chips', 'CTA', 'tall'],
       ['cta-rough-1', 'Barako Bros. coffee', 'CTA, rough'], ['cta-soft-1', 'Himbing pillow', 'CTA, soft'], ['cta-maximalist-1', 'Halo Halo soda', 'CTA, maximalist'], ['cta-modern-1', 'Agos earbuds', 'CTA, modern'],
       ['cta-rough-2', 'Sili hot sauce', 'CTA, rough'], ['cta-soft-2', 'Lambing baby lotion', 'CTA, soft'], ['cta-maximalist-2', 'Bida Burger', 'CTA, maximalist'], ['cta-modern-2', 'Linya bottle', 'CTA, modern']] }
   };
@@ -1062,9 +1089,32 @@ carousel.addEventListener("mouseleave",()=>{
   function updateArrows() {
     back.disabled = rail.scrollLeft <= 2;
     fwd.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
+    wrap.classList.toggle('scrolled', !back.disabled);
+    wrap.classList.toggle('at-end', fwd.disabled);
   }
 
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wrap = rail.parentElement;
+  function tilt(b) {
+    if (reduced || matchMedia('(hover: none)').matches) return;
+    b.addEventListener('pointermove', e => {
+      const r = b.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      b.style.setProperty('--ry', ((x - 0.5) * 9).toFixed(2) + 'deg');
+      b.style.setProperty('--rx', ((0.5 - y) * 7).toFixed(2) + 'deg');
+      b.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      b.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    });
+    b.addEventListener('pointerleave', () => { b.style.setProperty('--rx', '0deg'); b.style.setProperty('--ry', '0deg'); });
+  }
+  let renderToken = 0;
   function render() {
+    const token = ++renderToken, old = [...rail.children];
+    if (old.length && !reduced) {
+      old.forEach(c => c.classList.add('leaving'));
+      setTimeout(() => { if (token === renderToken) build(); }, 220);
+    } else build();
+  }
+  function build() {
     current = itemsFor(active);
     rail.innerHTML = ''; rail.scrollLeft = 0;
     current.forEach((it, i) => {
@@ -1075,7 +1125,13 @@ carousel.addEventListener("mouseleave",()=>{
       img.src = 'ADS/thumb/' + it.id + '.webp';
       img.alt = it.title + ', ' + it.kind;
       img.loading = i < 3 ? 'eager' : 'lazy'; img.decoding = 'async';
-      b.appendChild(img);
+      const cap = document.createElement('span');
+      cap.className = 'stash-cap';
+      cap.innerHTML = '<b></b><span></span>';
+      cap.firstChild.textContent = it.title; cap.lastChild.textContent = it.kind;
+      b.style.setProperty('--d', Math.min(i * 70, 560) + 'ms');
+      b.append(img, cap);
+      tilt(b);
       b.addEventListener('click', () => { opener = b; open(i); });
       rail.appendChild(b);
     });
@@ -1091,8 +1147,9 @@ carousel.addEventListener("mouseleave",()=>{
 
   // Viewer
   const viewer = $('stashViewer'), vImg = $('stashImg');
-  function show(i) {
+  function show(i, dir = 0) {
     pos = (i + current.length) % current.length;
+    if (dir && !reduced) vImg.animate([{ opacity: 0, transform: 'translateX(' + (dir * 40) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
     const it = current[pos];
     vImg.src = 'ADS/full/' + it.id + '.webp';
     vImg.alt = it.title + ', ' + it.kind;
@@ -1103,20 +1160,20 @@ carousel.addEventListener("mouseleave",()=>{
   function open(i) { show(i); viewer.classList.add('open'); document.body.style.overflow = 'hidden'; $('stashClose').focus(); }
   function close() { viewer.classList.remove('open'); document.body.style.overflow = ''; vImg.src = ''; opener?.focus(); }
   $('stashClose').addEventListener('click', close);
-  $('stashPrev').addEventListener('click', () => show(pos - 1));
-  $('stashNext').addEventListener('click', () => show(pos + 1));
+  $('stashPrev').addEventListener('click', () => show(pos - 1, -1));
+  $('stashNext').addEventListener('click', () => show(pos + 1, 1));
   viewer.addEventListener('click', e => { if (e.target === viewer) close(); });
   document.addEventListener('keydown', e => {
     if (!viewer.classList.contains('open')) return;
     if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') show(pos - 1);
-    if (e.key === 'ArrowRight') show(pos + 1);
+    if (e.key === 'ArrowLeft') show(pos - 1, -1);
+    if (e.key === 'ArrowRight') show(pos + 1, 1);
   });
   let startX = 0;
   viewer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
   viewer.addEventListener('touchend', e => {
     const d = e.changedTouches[0].clientX - startX;
-    if (Math.abs(d) > 50) show(pos + (d < 0 ? 1 : -1));
+    if (Math.abs(d) > 50) show(pos + (d < 0 ? 1 : -1), d < 0 ? 1 : -1);
   });
 
   Object.entries(TABS).forEach(([key, t]) => {
@@ -1124,12 +1181,28 @@ carousel.addEventListener("mouseleave",()=>{
     b.type = 'button'; b.className = 'stash-tab'; b.textContent = t.label; b.setAttribute('role', 'tab');
     b.setAttribute('aria-selected', key === active);
     b.addEventListener('click', () => {
+      if (active === key && rail.children.length) return;
       active = key;
       $('stashTabs').querySelectorAll('.stash-tab').forEach(x => x.setAttribute('aria-selected', x === b));
+      moveInk(b);
       render();
     });
     $('stashTabs').appendChild(b);
   });
+  const ink = document.createElement('span'); ink.className = 'stash-ink'; $('stashTabs').appendChild(ink);
+  function moveInk(btn) { ink.style.width = btn.offsetWidth + 'px'; ink.style.transform = 'translateX(' + btn.offsetLeft + 'px)'; }
+  const selectedTab = () => $('stashTabs').querySelector('[aria-selected="true"]');
+  window.addEventListener('resize', () => moveInk(selectedTab()));
+  document.fonts?.ready.then(() => moveInk(selectedTab()));
+  moveInk(selectedTab());
+
+  // Reveal the section as it scrolls into view
+  const revealEls = ['#ads .section-tag', '#ads .section-title', '#ads .section-line', '#ads .work-intro', '#stashTabs', '#ads .stash-rail-wrap', '#ads .stash-rail-foot'].map(q => document.querySelector(q)).filter(Boolean);
+  if ('IntersectionObserver' in window && !reduced) {
+    revealEls.forEach((el, i) => { el.classList.add('stash-reveal'); el.style.setProperty('--rd', (i * 90) + 'ms'); });
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  }
   render();
 })();
 </script>
