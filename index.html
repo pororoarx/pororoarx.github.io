@@ -118,6 +118,19 @@
   .video-library-link { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 1.75rem; background: transparent; border: 1px solid rgba(245,197,24,0.35); color: var(--text); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; transition: border-color 0.2s, color 0.2s; white-space: nowrap; }
   .video-library-link:hover { border-color: var(--blue); color: var(--blue); }
 
+  /* VIDEO RAIL (reuses the graphics rail styles) */
+  #videos .stash-rail-wrap { --h: 380px; }
+  #videos .stash-rail-wrap::before { background: linear-gradient(90deg, var(--bg), transparent); }
+  #videos .stash-rail-wrap::after { background: linear-gradient(270deg, var(--bg), transparent); }
+  .stash-item.vid { aspect-ratio: 9 / 16; cursor: pointer; }
+  .vid-play { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: rgba(10,13,20,0.55); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; transition: transform 0.35s cubic-bezier(.2,.8,.2,1), background 0.3s; pointer-events: none; z-index: 1; }
+  .vid-play::before { content: ''; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent #fff; }
+  .stash-item.vid:hover .vid-play { transform: scale(1.12); background: var(--blue); }
+  .stash-item.vid:hover .vid-play::before { border-left-color: #111; }
+  .vid-dur { position: absolute; top: 10px; right: 10px; font-size: 0.68rem; letter-spacing: 0.06em; color: #fff; background: rgba(10,13,20,0.7); padding: 0.15rem 0.45rem; border-radius: 999px; z-index: 1; }
+  .vid-viewer iframe { width: min(calc((100vh - 7rem) * 9 / 16), 92vw); aspect-ratio: 9 / 16; height: auto; max-height: calc(100vh - 7rem); border: 0; border-radius: 10px; background: #000; animation: viewIn 0.45s cubic-bezier(.2,.8,.2,1) both; }
+  @media (max-width: 620px) { #videos .stash-rail-wrap { --h: 340px; } }
+
   /* UI/UX */
   #uiux { background: var(--bg2); }
   .uiux-subtitle { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--text); margin: 0 0 1.5rem; }
@@ -544,7 +557,7 @@
 <section id="ads">
   <div class="container">
     <p class="section-tag">Graphic Design</p>
-    <h2 class="section-title">Ad <em style="font-style:italic;color:var(--blue)">Creative</em></h2>
+    <h2 class="section-title">Ad Creative</h2>
     <div class="section-line"></div>
     <p class="work-intro">Concept brands, from naming and packaging to campaign ads and calls to action. Pick a style and slide through.</p>
     <div class="stash-tabs" id="stashTabs" role="tablist" aria-label="Graphics style"></div>
@@ -567,89 +580,16 @@
     <p class="section-tag">Video Production</p>
     <h2 class="section-title">Video Edits</h2>
     <div class="section-line"></div>
-    <p class="work-intro">Social ads, reels, and brand content — product campaigns for e-commerce clients.</p>
-
-    <div class="video-category">
-      <p class="video-category-label">E-commerce</p>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/T8sPGthRhW4" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/mlSd86tuli0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/1Q2VsqU8Xjs" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+    <p class="work-intro">Ads I edited for e-commerce and DTC brands, from quick UGC-style spots to animated story ads and long-form VSLs. Pick a category and tap to play.</p>
+    <div class="stash-tabs" id="vidTabs" role="tablist" aria-label="Video category"></div>
+    <div class="stash-rail-wrap vid-rail-wrap">
+      <div class="stash-rail" id="vidRail" tabindex="-1"></div>
     </div>
-
-    <div class="video-category">
-      <p class="video-category-label">E-commerce</p>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://youtube.com/embed/OmYemtGZmh0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://youtube.com/embed/BNcGNEoqIwA" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/YhaEl7rSTDQ" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-category">
-      <p class="video-category-label">VSL</p>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/D08_I__Qaqk" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/UOCXLdGVvSk" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/XJpUPmhopYo" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-category">
-      <p class="video-category-label">Animated</p>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/cIUFIX_6uws" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/IBKMQZ1axxk" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/QmCrDJkHB9E" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
+    <div class="stash-rail-foot">
+      <span class="stash-count" id="vidCount" aria-live="polite"></span>
+      <div class="stash-arrows">
+        <button class="stash-arrow" id="vidBack" type="button" aria-label="Slide back">&#8249;</button>
+        <button class="stash-arrow" id="vidFwd" type="button" aria-label="Slide forward">&#8250;</button>
       </div>
     </div>
 
@@ -1204,6 +1144,112 @@ carousel.addEventListener("mouseleave",()=>{
     revealEls.forEach(el => io.observe(el));
   }
   render();
+})();
+</script>
+<!-- VIDEO VIEWER -->
+<div class="stash-viewer vid-viewer" id="vidViewer" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="stash-vbtn stash-close" id="vidClose" type="button" aria-label="Close">&#x2715;</button>
+  <button class="stash-vbtn stash-prev" id="vidPrev" type="button" aria-label="Previous video">&#8249;</button>
+  <div id="vidFrame"></div>
+  <p class="stash-viewer-cap"><b id="vidTitle" style="font-weight:400"></b><span id="vidPos"></span></p>
+  <button class="stash-vbtn stash-next" id="vidNext" type="button" aria-label="Next video">&#8250;</button>
+</div>
+
+<script>
+// ── Video rail ── videos stream from the public Drive portfolio folder
+(() => {
+  const V = {
+    ugc: { label: 'E-commerce UGC', items: [
+      ['1_BF7SJPS2A1TN4_u841VhwiddBcRHyB4', 'Aussie Glow leather balm', '1:08'], ['1cpRqNxtHWb5QlUxbG8HaN0xnhGxMjie6', 'KangaFeet insoles', '0:42'],
+      ['1dSu37eU6kgeW5AjsKxSS2ZjfDLHbdBD5', 'No-pull dog harness', '1:30'], ['1xCGZcJzGwGVrUehJUMIaQN7y2-T-Mz5z', 'PawlyLab harness', '0:53'],
+      ['1vovG0kmuNZv4qB2C6N8q7Ho3a6RypqSH', 'Titanium cookware', '2:23'], ['1RPjL9u7KIu2di1uK0UQgrOhV3ZMsDpNM', 'CarePets eye wipes', '1:03'],
+      ['1_eMdKBNo-BqBFWpVZmNBoDu36erph6l9', 'DinoBrush kids toothbrush (Italian)', '0:26']] },
+    skincare: { label: 'Skincare Mini-VSL', items: [
+      ['1kzM-5vOavL1ZGU3ohuJkDlYds1-rYzjg', 'Collagen ampoule, clinic story', '1:51'], ['1wZC6r7gqGBPnPxifnxCHZdmlX1DL860P', 'Collagen ampoule, couple testimonial', '2:13'],
+      ['1v0nKQnNIa3uIYjTE6gNKrbk7zHQeePrm', 'Collagen ampoule, street interview', '1:43'], ['1nKlzzs-xMbobhEA7xsWYRLDr8CG3U4SJ', 'Collagen ampoule, ranking review', '3:19']] },
+    story: { label: 'Animated Story Ads', items: [
+      ['1zfFu0ZOCkK5592UBkqTWS2MJCrg6tZ06', 'Story ad, the switch', '5:03'], ['1BNGT2oVlGLQDAAgo-7k3nMl3JbMoT-uX', 'Story ad, the reunion', '4:13'],
+      ['1_y1wpF0OW9JYY259xn9Zrf4lEvsMX5Zi', 'Story ad, the stylist', '6:47'], ['1EXLEN4cVCnOcoTcdYW0-0S9oO_YwQH8G', 'Song ad, original track', '']] },
+    character: { label: 'Character Animation', items: [
+      ['1BP5iB4DR2dSxWa3beWtZo-w8l1PyTiL4', 'Talking skin character', '3:09'], ['15ErgwR6anlvEbZQSF44HWFtdAIj3WK3Z', 'Courtroom product trial', '2:26'],
+      ['1w0FszSlhW2M85vlHrAvi_plNr_uNNgvu', 'Dog harness animation', ''], ['1VCGcb8dMzHv4UiFj24lVEHsl9b2u16PV', 'Dog harness animation II', ''],
+      ['1rZpLwcGyPnky072KCe_lfvsdyeoi8EU4', 'Fitness cartoon short', '0:29']] },
+    vsl: { label: 'Long-form VSL', items: [
+      ['1w5yz4r4NzetczBk9CBFRt1-PuskfG4P0', 'Foot massager VSL', '6:59'], ['1ponD8tGvB0ijF8z2oKOqRDvySmwR7bkf', 'Vascular doctor VSL', '6:25']] }
+  };
+  const $ = id => document.getElementById(id);
+  const rail = $('vidRail'), wrap = rail.parentElement, back = $('vidBack'), fwd = $('vidFwd'), tabs = $('vidTabs');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let active = 'ugc', current = [], pos = 0, opener = null, token = 0;
+
+  function arrows() {
+    back.disabled = rail.scrollLeft <= 2;
+    fwd.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
+    wrap.classList.toggle('scrolled', !back.disabled); wrap.classList.toggle('at-end', fwd.disabled);
+  }
+  function build() {
+    current = V[active].items; rail.innerHTML = ''; rail.scrollLeft = 0;
+    current.forEach(([id, title, dur], i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'stash-item vid'; b.setAttribute('aria-label', 'Play ' + title);
+      b.style.setProperty('--d', Math.min(i * 70, 560) + 'ms');
+      const img = new Image(); img.src = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w640'; img.alt = title; img.loading = i < 4 ? 'eager' : 'lazy'; img.referrerPolicy = 'no-referrer';
+      const play = document.createElement('span'); play.className = 'vid-play';
+      const cap = document.createElement('span'); cap.className = 'stash-cap'; cap.innerHTML = '<b></b><span></span>';
+      cap.firstChild.textContent = title; cap.lastChild.textContent = V[active].label;
+      b.append(img, play, cap);
+      if (dur) { const d = document.createElement('span'); d.className = 'vid-dur'; d.textContent = dur; b.append(d); }
+      b.addEventListener('click', () => { opener = b; open(i); });
+      rail.appendChild(b);
+    });
+    $('vidCount').textContent = current.length + ' videos'; arrows();
+  }
+  function render() {
+    const t = ++token, old = [...rail.children];
+    if (old.length && !reduced) { old.forEach(c => c.classList.add('leaving')); setTimeout(() => { if (t === token) build(); }, 220); } else build();
+  }
+  back.addEventListener('click', () => rail.scrollBy({ left: -rail.clientWidth * 0.8, behavior: 'smooth' }));
+  fwd.addEventListener('click', () => rail.scrollBy({ left: rail.clientWidth * 0.8, behavior: 'smooth' }));
+  rail.addEventListener('scroll', arrows, { passive: true }); window.addEventListener('resize', arrows);
+
+  const viewer = $('vidViewer'), frame = $('vidFrame');
+  function show(i) {
+    pos = (i + current.length) % current.length; const [id, title] = current[pos];
+    frame.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" allow="autoplay; fullscreen" allowfullscreen title="' + title.replace(/"/g, '') + '"></iframe>';
+    $('vidTitle').textContent = title; $('vidPos').textContent = (pos + 1) + ' / ' + current.length;
+  }
+  function open(i) { show(i); viewer.classList.add('open'); document.body.style.overflow = 'hidden'; $('vidClose').focus(); }
+  function close() { viewer.classList.remove('open'); frame.innerHTML = ''; document.body.style.overflow = ''; opener?.focus(); }
+  $('vidClose').addEventListener('click', close);
+  $('vidPrev').addEventListener('click', () => show(pos - 1));
+  $('vidNext').addEventListener('click', () => show(pos + 1));
+  viewer.addEventListener('click', e => { if (e.target === viewer) close(); });
+  document.addEventListener('keydown', e => {
+    if (!viewer.classList.contains('open')) return;
+    if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(pos - 1); if (e.key === 'ArrowRight') show(pos + 1);
+  });
+
+  Object.entries(V).forEach(([key, c]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'stash-tab'; b.textContent = c.label; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', key === active);
+    b.addEventListener('click', () => {
+      if (active === key) return; active = key;
+      tabs.querySelectorAll('.stash-tab').forEach(x => x.setAttribute('aria-selected', x === b)); ink(b); render();
+    });
+    tabs.appendChild(b);
+  });
+  const bar = document.createElement('span'); bar.className = 'stash-ink'; tabs.appendChild(bar);
+  function ink(btn) { bar.style.width = btn.offsetWidth + 'px'; bar.style.transform = 'translateX(' + btn.offsetLeft + 'px)'; }
+  const sel = () => tabs.querySelector('[aria-selected="true"]');
+  window.addEventListener('resize', () => ink(sel())); document.fonts?.ready.then(() => ink(sel())); ink(sel());
+
+  const els = ['#videos .section-tag', '#videos .section-title', '#videos .section-line', '#videos .work-intro', '#vidTabs', '#videos .stash-rail-wrap', '#videos .stash-rail-foot', '#videos .video-library'].map(q => document.querySelector(q)).filter(Boolean);
+  if ('IntersectionObserver' in window && !reduced) {
+    els.forEach((el, i) => { el.classList.add('stash-reveal'); el.style.setProperty('--rd', (i * 90) + 'ms'); });
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  }
+  build();
 })();
 </script>
 </body>
