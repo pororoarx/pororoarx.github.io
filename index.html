@@ -227,33 +227,27 @@
     box-shadow: 0 0 0 1px var(--bg3);
   }
 
-  /* AD CREATIVE STASH */
+  /* GRAPHICS RAIL */
   #ads { background: var(--bg2); }
-  .stash-filters { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
-  .stash-filter-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-  .stash-filter-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); width: 3.4rem; }
-  .stash-pill { font-family: var(--sans); font-size: 0.78rem; color: var(--text); background: transparent; border: 1px solid rgba(245,197,24,0.2); border-radius: 999px; padding: 0.38rem 0.95rem; cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s; }
-  .stash-pill:hover { border-color: var(--blue); color: var(--blue); }
-  .stash-pill[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #0a0d14; font-weight: 500; }
-  .stash-count { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
-  .stash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; grid-auto-flow: dense; }
-  .stash-item { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--bg3); cursor: zoom-in; animation: stashIn 0.45s ease both; transition: border-color 0.25s, transform 0.25s; }
-  .stash-item.feat { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-  .stash-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
-  .stash-item:hover, .stash-item:focus-visible { border-color: var(--blue); transform: translateY(-3px); outline: none; }
-  .stash-item:hover img, .stash-item:focus-visible img { transform: scale(1.04); }
-  .stash-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 0.9rem 0.75rem; text-align: left; background: linear-gradient(to top, rgba(5,8,16,0.88), transparent); opacity: 0; transform: translateY(6px); transition: opacity 0.25s, transform 0.25s; }
-  .stash-item:hover .stash-cap, .stash-item:focus-visible .stash-cap { opacity: 1; transform: none; }
-  .stash-cap b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1rem; color: #fff; line-height: 1.25; }
-  .stash-cap span { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); }
-  .stash-filler { display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; padding: 1.1rem 1.25rem; border: 1px dashed rgba(245,197,24,0.3); border-radius: 12px; color: var(--text); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
-  .stash-filler:hover { border-color: var(--blue); color: var(--blue); }
-  .stash-filler b { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; line-height: 1.25; }
-  .stash-filler span { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
-  .stash-more { display: block; margin: 2rem auto 0; }
-  .stash-more[hidden] { display: none; }
-  .stash-empty { grid-column: 1 / -1; padding: 3rem 1rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
-  @keyframes stashIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .stash-tabs { display: flex; gap: 1.6rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; }
+  .stash-tab { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0.55rem 0; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
+  .stash-tab:hover { color: var(--text); }
+  .stash-tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+  .stash-rail-wrap { --h: 400px; position: relative; }
+  .stash-rail { display: flex; align-items: center; gap: 1rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 2px 2px 4px; }
+  .stash-rail::-webkit-scrollbar { display: none; }
+  .stash-item { flex: none; height: var(--h); aspect-ratio: 4 / 5; padding: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg3); cursor: zoom-in; scroll-snap-align: start; animation: stashIn 0.4s ease both; transition: border-color 0.2s; }
+  .stash-item.wide { aspect-ratio: 16 / 9; }
+  .stash-item.tall { aspect-ratio: 3 / 4; }
+  .stash-item:hover, .stash-item:focus-visible { border-color: var(--blue); outline: none; }
+  .stash-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stash-rail-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; }
+  .stash-count { font-size: 0.78rem; color: var(--muted); }
+  .stash-arrows { display: flex; gap: 0.5rem; }
+  .stash-arrow { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 1.15rem; line-height: 1; cursor: pointer; transition: border-color 0.2s, color 0.2s, opacity 0.2s; }
+  .stash-arrow:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+  .stash-arrow:disabled { opacity: 0.3; cursor: default; }
+  @keyframes stashIn { from { opacity: 0; } to { opacity: 1; } }
 
   .stash-viewer { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(5,8,16,0.96); backdrop-filter: blur(10px); align-items: center; justify-content: center; flex-direction: column; padding: 1.25rem 4.5rem; }
   .stash-viewer.open { display: flex; }
@@ -266,21 +260,22 @@
   .stash-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
   .stash-next { right: 1rem; top: 50%; transform: translateY(-50%); }
 
-  @media (max-width: 900px) { .stash-grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 620px) {
     nav { gap: 1rem; }
     .nav-logo { white-space: nowrap; }
     .nav-links { min-width: 0; overflow-x: auto; scrollbar-width: none; }
     .nav-links::-webkit-scrollbar { display: none; }
-    .stash-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-    .stash-filter-label { width: 100%; }
+    .stash-rail-wrap { --h: 300px; }
+    .stash-rail { gap: 0.7rem; }
+    .stash-item.wide { height: auto; width: 86vw; }
+    .stash-tabs { gap: 1.1rem; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .stash-tab { white-space: nowrap; }
     .stash-viewer { padding: 4rem 0.75rem 5rem; }
     .stash-prev { left: calc(50% - 58px); top: auto; bottom: 1rem; transform: none; }
     .stash-next { right: calc(50% - 58px); top: auto; bottom: 1rem; transform: none; }
     .stash-viewer-cap { position: absolute; top: 1.6rem; left: 1rem; margin: 0; }
   }
-  @media (hover: none) { .stash-cap { opacity: 1; transform: none; padding-top: 1.6rem; } .stash-cap b { font-size: 0.85rem; } }
-  @media (prefers-reduced-motion: reduce) { .stash-item, .stash-item img, .stash-cap { animation: none; transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .stash-item { animation: none; } .stash-rail { scroll-behavior: auto; } }
 
   /* EXPERIENCE */
   #experience { background: var(--bg3); }
@@ -530,14 +525,18 @@
     <p class="section-tag">Graphic Design</p>
     <h2 class="section-title">Ad <em style="font-style:italic;color:var(--blue)">Creative</em></h2>
     <div class="section-line"></div>
-    <p class="work-intro">Five concept brands, from naming and packaging to campaign ads and product visuals, in styles that run from quiet minimalist to full-volume maximalist.</p>
-    <div class="stash-filters">
-      <div class="stash-filter-row" id="stashBrands"><span class="stash-filter-label">Brand</span></div>
-      <div class="stash-filter-row" id="stashTypes"><span class="stash-filter-label">Type</span></div>
+    <p class="work-intro">Concept brands, from naming and packaging to campaign ads and calls to action. Pick a category and slide through.</p>
+    <div class="stash-tabs" id="stashTabs" role="tablist" aria-label="Graphics category"></div>
+    <div class="stash-rail-wrap">
+      <div class="stash-rail" id="stashRail" tabindex="-1"></div>
     </div>
-    <p class="stash-count" id="stashCount" aria-live="polite"></p>
-    <div class="stash-grid" id="stashGrid"></div>
-    <button class="btn btn-ghost stash-more" id="stashMore" type="button">View all work</button>
+    <div class="stash-rail-foot">
+      <span class="stash-count" id="stashCount" aria-live="polite"></span>
+      <div class="stash-arrows">
+        <button class="stash-arrow" id="stashBack" type="button" aria-label="Slide back">&#8249;</button>
+        <button class="stash-arrow" id="stashFwd" type="button" aria-label="Slide forward">&#8250;</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1029,98 +1028,62 @@ carousel.addEventListener("mouseleave",()=>{
 <script>
 // ── Ad Creative stash ── (separate script so it runs independently of the one above)
 (() => {
-  const BRANDS = {
-    makeup: { name: 'Sinta', label: 'Makeup', product: 'Velvet Matte Lip' },
-    supplements: { name: 'Nodwell', label: 'Supplements', product: 'Night Gummies' },
-    shoes: { name: 'Takbo', label: 'Shoes', product: 'Aero 1' },
-    dogs: { name: 'Bantay', label: 'Dogs', product: 'Kitchen for Dogs' },
-    skincare: { name: 'Ulan', label: 'Skincare', product: 'Barrier Serum' }
+  const TABS = {
+    makeup: { label: 'Makeup', title: 'Sinta', product: 'Velvet Matte Lip' },
+    supplements: { label: 'Supplements', title: 'Nodwell', product: 'Night Gummies' },
+    shoes: { label: 'Shoes', title: 'Takbo', product: 'Aero 1' },
+    dogs: { label: 'Dogs', title: 'Bantay', product: 'Kitchen for Dogs' },
+    skincare: { label: 'Skincare', title: 'Ulan', product: 'Barrier Serum' },
+    dimensions: { label: 'Dimensions', title: '', product: '' },
+    cta: { label: 'CTAs', title: 'CTA', product: '' }
   };
-  const TYPES = { ad: 'Ads', packaging: 'Packaging', product: 'Product', minimalist: 'Minimalist', maximalist: 'Maximalist' };
-  const SINGULAR = { ad: 'Ad', packaging: 'Packaging', product: 'Product', minimalist: 'Minimalist', maximalist: 'Maximalist' };
-  const SLUGS = ['ad-1', 'ad-2', 'packaging-1', 'packaging-2', 'product', 'minimalist', 'maximalist'];
-
-  // Curated opening order. Featured tiles are double size in the "All" view.
-  const LEAD = ['shoes-maximalist', 'skincare-ad-1', 'makeup-minimalist', 'dogs-packaging-1', 'supplements-ad-1', 'makeup-ad-1', 'dogs-minimalist',
-                'shoes-packaging-2', 'skincare-maximalist', 'supplements-minimalist', 'dogs-ad-1', 'makeup-maximalist', 'skincare-product', 'shoes-ad-2'];
-  const FEATURED = new Set(['shoes-maximalist', 'supplements-ad-1', 'skincare-maximalist']);
-  const INITIAL = LEAD.length;
-
-  const all = [];
-  Object.keys(BRANDS).forEach(cat => SLUGS.forEach(s => all.push({ id: cat + '-' + s, cat, type: s.split('-')[0] })));
-  const rank = id => { const i = LEAD.indexOf(id); return i < 0 ? 999 : i; };
-  all.sort((a, b) => rank(a.id) - rank(b.id));
+  const BRAND_ITEMS = [['rl-packaging', 'Packaging'], ['ad-1', 'Ad'], ['rl-product', 'Product'], ['minimalist', 'Minimalist'], ['ad-2', 'Ad'], ['maximalist', 'Maximalist']];
+  const MAKEUP_ITEMS = [['rl-ad-1', 'Ad'], ['rl-packaging', 'Packaging'], ['rl-ad-2', 'Ad'], ['rl-product', 'Product'], ['rl-ad-3', 'Ad'], ['rl-ad-4', 'Ad']];
+  const DIMENSIONS = [['sinta-carton', 'Sinta carton and case'], ['sinta-trio', 'Sinta Trio Set'], ['sinta-lipstick', 'Sinta lipstick'], ['nodwell-carton', 'Nodwell carton and jar'], ['nodwell-sachets', 'Nodwell sachets'], ['nodwell-jar', 'Nodwell jar'],
+                      ['takbo-box', 'Takbo shoe box'], ['takbo-bag', 'Takbo dust bag and tag'], ['takbo-shoe', 'Takbo Aero 1'], ['bantay-bag', 'Bantay kibble bag'], ['bantay-treats', 'Bantay pouch and can'], ['bantay-bowl', 'Bantay bowl'],
+                      ['ulan-carton', 'Ulan carton and bottle'], ['ulan-range', 'Ulan range'], ['ulan-bottle', 'Ulan serum bottle']];
+  const CTAS = [['rough-1', 'Rough', 'Barako Bros. coffee'], ['soft-1', 'Soft', 'Himbing pillow'], ['maximalist-1', 'Maximalist', 'Halo Halo soda'], ['modern-1', 'Modern', 'Agos earbuds'],
+                ['rough-2', 'Rough', 'Sili hot sauce'], ['soft-2', 'Soft', 'Lambing baby lotion'], ['maximalist-2', 'Maximalist', 'Bida Burger'], ['modern-2', 'Modern', 'Linya bottle']];
 
   const $ = id => document.getElementById(id);
-  const grid = $('stashGrid'), count = $('stashCount'), more = $('stashMore');
-  const state = { cat: 'all', type: 'all', expanded: false };
-  let current = [], pos = 0, opener = null;
+  const rail = $('stashRail'), count = $('stashCount'), back = $('stashBack'), fwd = $('stashFwd');
+  let current = [], pos = 0, opener = null, active = 'makeup';
 
-  const titleOf = it => BRANDS[it.cat].name + ' — ' + BRANDS[it.cat].product;
-  const matches = it => (state.cat === 'all' || it.cat === state.cat) && (state.type === 'all' || it.type === state.type);
+  const itemsFor = tab => {
+    if (tab === 'dimensions') return DIMENSIONS.map(([s, name]) => ({ id: 'dim-' + s, title: name, kind: 'Dimensions', shape: 'wide' }));
+    if (tab === 'cta') return CTAS.map(([s, kind, name]) => ({ id: 'cta-' + s, title: name, kind, shape: '' }));
+    return (tab === 'makeup' ? MAKEUP_ITEMS : BRAND_ITEMS).map(([s, kind]) => ({ id: tab + '-' + s, title: TABS[tab].title + ' \u2014 ' + TABS[tab].product, kind, shape: s.startsWith('rl-') ? 'tall' : '' }));
+  };
 
-  function pills(rowId, key, options) {
-    const row = $(rowId);
-    Object.entries({ all: 'All', ...options }).forEach(([value, text]) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'stash-pill'; b.textContent = text;
-      b.setAttribute('aria-pressed', value === 'all');
-      b.addEventListener('click', () => {
-        state[key] = value;
-        row.querySelectorAll('.stash-pill').forEach(p => p.setAttribute('aria-pressed', p === b));
-        render();
-      });
-      row.appendChild(b);
-    });
+  function updateArrows() {
+    back.disabled = rail.scrollLeft <= 2;
+    fwd.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
   }
 
-  function columns() { return getComputedStyle(grid).gridTemplateColumns.split(' ').length; }
-
-  function addFiller(used) {
-    grid.querySelector('.stash-filler')?.remove();
-    if (!used) return;
-    const rest = (columns() - (used % columns())) % columns();
-    if (!rest) return;
-    const a = document.createElement('a');
-    a.href = '#contact'; a.className = 'stash-filler'; a.style.gridColumn = 'span ' + rest;
-    a.innerHTML = '<b>Need ads like these?</b><span>Let’s talk →</span>';
-    grid.appendChild(a);
-  }
-
-  let usedCells = 0;
   function render() {
-    current = all.filter(matches);
-    const isAll = state.cat === 'all' && state.type === 'all';
-    const shown = isAll && !state.expanded ? current.slice(0, INITIAL) : current;
-    grid.innerHTML = ''; usedCells = 0;
-    shown.forEach((it, i) => {
-      const feat = isAll && FEATURED.has(it.id);
-      usedCells += feat ? 4 : 1;
+    current = itemsFor(active);
+    rail.innerHTML = ''; rail.scrollLeft = 0;
+    current.forEach((it, i) => {
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'stash-item' + (feat ? ' feat' : '');
-      b.style.animationDelay = Math.min(i * 25, 300) + 'ms';
-      b.setAttribute('aria-label', 'View ' + titleOf(it) + ', ' + SINGULAR[it.type]);
+      b.type = 'button'; b.className = 'stash-item' + (it.shape ? ' ' + it.shape : '');
+      b.setAttribute('aria-label', 'View ' + it.title + ', ' + it.kind);
       const img = new Image();
-      img.src = 'ADS/' + (feat ? 'full' : 'thumb') + '/' + it.id + '.webp';
-      img.alt = titleOf(it) + ', ' + SINGULAR[it.type];
-      img.loading = 'lazy'; img.decoding = 'async';
-      const cap = document.createElement('span');
-      cap.className = 'stash-cap';
-      cap.innerHTML = '<b>' + BRANDS[it.cat].name + '</b><span>' + SINGULAR[it.type] + '</span>';
-      b.append(img, cap);
-      b.addEventListener('click', () => { opener = b; open(current.indexOf(it)); });
-      grid.appendChild(b);
+      img.src = 'ADS/thumb/' + it.id + '.webp';
+      img.alt = it.title + ', ' + it.kind;
+      img.loading = i < 3 ? 'eager' : 'lazy'; img.decoding = 'async';
+      b.appendChild(img);
+      b.addEventListener('click', () => { opener = b; open(i); });
+      rail.appendChild(b);
     });
-    if (!shown.length) grid.innerHTML = '<p class="stash-empty">No pieces in that combination yet.</p>';
-    addFiller(usedCells);
-    count.textContent = current.length + (current.length === 1 ? ' piece' : ' pieces');
-    more.hidden = !(isAll && !state.expanded);
+    count.textContent = current.length + ' pieces';
+    updateArrows();
   }
 
-  more.textContent = 'View all ' + all.length + ' pieces';
-  more.addEventListener('click', () => { state.expanded = true; render(); });
-  let resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => addFiller(usedCells), 150); });
+  function slide(dir) { rail.scrollBy({ left: dir * rail.clientWidth * 0.8, behavior: 'smooth' }); }
+  back.addEventListener('click', () => slide(-1));
+  fwd.addEventListener('click', () => slide(1));
+  rail.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
 
   // Viewer
   const viewer = $('stashViewer'), vImg = $('stashImg');
@@ -1128,8 +1091,8 @@ carousel.addEventListener("mouseleave",()=>{
     pos = (i + current.length) % current.length;
     const it = current[pos];
     vImg.src = 'ADS/full/' + it.id + '.webp';
-    vImg.alt = titleOf(it) + ', ' + SINGULAR[it.type];
-    $('stashTitle').textContent = titleOf(it) + ' · ' + SINGULAR[it.type];
+    vImg.alt = it.title + ', ' + it.kind;
+    $('stashTitle').textContent = it.title + ' · ' + it.kind;
     $('stashPos').textContent = (pos + 1) + ' / ' + current.length;
     [current[pos + 1], current[pos - 1]].forEach(n => { if (n) new Image().src = 'ADS/full/' + n.id + '.webp'; });
   }
@@ -1152,8 +1115,17 @@ carousel.addEventListener("mouseleave",()=>{
     if (Math.abs(d) > 50) show(pos + (d < 0 ? 1 : -1));
   });
 
-  pills('stashBrands', 'cat', Object.fromEntries(Object.entries(BRANDS).map(([k, v]) => [k, v.label])));
-  pills('stashTypes', 'type', TYPES);
+  Object.entries(TABS).forEach(([key, t]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'stash-tab'; b.textContent = t.label; b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', key === active);
+    b.addEventListener('click', () => {
+      active = key;
+      $('stashTabs').querySelectorAll('.stash-tab').forEach(x => x.setAttribute('aria-selected', x === b));
+      render();
+    });
+    $('stashTabs').appendChild(b);
+  });
   render();
 })();
 </script>
