@@ -525,8 +525,8 @@
     <p class="section-tag">Graphic Design</p>
     <h2 class="section-title">Ad <em style="font-style:italic;color:var(--blue)">Creative</em></h2>
     <div class="section-line"></div>
-    <p class="work-intro">Concept brands, from naming and packaging to campaign ads and calls to action. Pick a category and slide through.</p>
-    <div class="stash-tabs" id="stashTabs" role="tablist" aria-label="Graphics category"></div>
+    <p class="work-intro">Concept brands, from naming and packaging to campaign ads and calls to action. Pick a style and slide through.</p>
+    <div class="stash-tabs" id="stashTabs" role="tablist" aria-label="Graphics style"></div>
     <div class="stash-rail-wrap">
       <div class="stash-rail" id="stashRail" tabindex="-1"></div>
     </div>
@@ -1028,32 +1028,36 @@ carousel.addEventListener("mouseleave",()=>{
 <script>
 // ── Ad Creative stash ── (separate script so it runs independently of the one above)
 (() => {
+  // Organised by style. Each item: [image id, brand / product, piece type, tile shape].
+  const B = { makeup: 'Sinta', supplements: 'Nodwell', shoes: 'Takbo', dogs: 'Bantay', skincare: 'Ulan' };
   const TABS = {
-    makeup: { label: 'Makeup', title: 'Sinta', product: 'Velvet Matte Lip' },
-    supplements: { label: 'Supplements', title: 'Nodwell', product: 'Night Gummies' },
-    shoes: { label: 'Shoes', title: 'Takbo', product: 'Aero 1' },
-    dogs: { label: 'Dogs', title: 'Bantay', product: 'Kitchen for Dogs' },
-    skincare: { label: 'Skincare', title: 'Ulan', product: 'Barrier Serum' },
-    dimensions: { label: 'Dimensions', title: '', product: '' },
-    cta: { label: 'CTAs', title: 'CTA', product: '' }
+    photoreal: { label: 'Photoreal', items: [
+      ['makeup-rl-ad-1', 'Sinta glaze lip tint', 'Ad', 'tall'], ['supplements-rl-packaging', 'Nodwell night gummies', 'Packaging', 'tall'], ['shoes-rl-product', 'Takbo Aero 1', 'Product', 'tall'],
+      ['skincare-rl-packaging', 'Ulan barrier serum', 'Packaging', 'tall'], ['makeup-rl-ad-2', 'Sinta glaze lip tint', 'Ad', 'tall'], ['dogs-rl-packaging2', 'Bantay kibble', 'Packaging', 'tall'],
+      ['skincare-rl-product', 'Ulan barrier serum', 'Product', 'tall'], ['makeup-rl-packaging', 'Sinta glaze lip tint', 'Packaging', 'tall'], ['shoes-rl-ad', 'Takbo Aero 1', 'Ad', 'tall'],
+      ['supplements-rl-ad', 'Nodwell night gummies', 'Ad', 'tall'], ['makeup-rl-ad-3', 'Sinta glaze lip tint', 'Ad', 'tall'], ['dogs-rl-ad', 'Bantay kibble', 'Ad', 'tall'],
+      ['makeup-rl-product', 'Sinta glaze lip tint', 'Product', 'tall'], ['makeup-rl-ad-4', 'Sinta glaze lip tint', 'Ad', 'tall']] },
+    minimal: { label: 'Minimal', items: [
+      ['makeup-minimalist', 'Sinta lipstick', 'Ad'], ['dogs-minimalist', 'Bantay kibble', 'Ad'], ['skincare-minimalist', 'Ulan barrier serum', 'Ad'], ['shoes-minimalist', 'Takbo Aero 1', 'Ad'], ['supplements-minimalist', 'Nodwell night gummies', 'Ad']] },
+    bold: { label: 'Bold', items: [
+      ['shoes-maximalist', 'Takbo Aero 1', 'Ad'], ['skincare-maximalist', 'Ulan barrier serum', 'Ad'], ['makeup-maximalist', 'Sinta lipstick', 'Ad'], ['dogs-maximalist', 'Bantay kibble', 'Ad'], ['supplements-maximalist', 'Nodwell night gummies', 'Ad']] },
+    graphic: { label: 'Graphic', items: [
+      ['supplements-ad-1', 'Nodwell night gummies', 'Ad'], ['shoes-ad-1', 'Takbo Aero 1', 'Ad'], ['dogs-ad-1', 'Bantay kibble', 'Ad'], ['skincare-ad-1', 'Ulan barrier serum', 'Ad'], ['makeup-ad-1', 'Sinta lipstick', 'Ad'],
+      ['supplements-ad-2', 'Nodwell night gummies', 'Ad'], ['shoes-ad-2', 'Takbo Aero 1', 'Ad'], ['dogs-ad-2', 'Bantay kibble', 'Ad'], ['skincare-ad-2', 'Ulan barrier serum', 'Ad'], ['makeup-ad-2', 'Sinta lipstick', 'Ad']] },
+    specs: { label: 'Product Specs', items: [
+      ['spec-sinta-tube', 'Sinta glaze lip tint', 'Product spec', 'wide'], ['spec-nodwell-gummy', 'Nodwell night gummy', 'Product spec', 'wide'], ['spec-takbo-shoe', 'Takbo Aero 1', 'Product spec', 'wide'],
+      ['spec-bantay-kibble', 'Bantay kibble', 'Product spec', 'wide'], ['spec-ulan-bottle', 'Ulan barrier serum', 'Product spec', 'wide'],
+      ['spec-takbo-sole', 'Takbo Aero 1 midsole', 'Product spec', 'wide']] },
+    cta: { label: 'CTAs', items: [
+      ['cta-rough-1', 'Barako Bros. coffee', 'CTA, rough'], ['cta-soft-1', 'Himbing pillow', 'CTA, soft'], ['cta-maximalist-1', 'Halo Halo soda', 'CTA, maximalist'], ['cta-modern-1', 'Agos earbuds', 'CTA, modern'],
+      ['cta-rough-2', 'Sili hot sauce', 'CTA, rough'], ['cta-soft-2', 'Lambing baby lotion', 'CTA, soft'], ['cta-maximalist-2', 'Bida Burger', 'CTA, maximalist'], ['cta-modern-2', 'Linya bottle', 'CTA, modern']] }
   };
-  const BRAND_ITEMS = [['rl-packaging', 'Packaging'], ['ad-1', 'Ad'], ['rl-product', 'Product'], ['minimalist', 'Minimalist'], ['ad-2', 'Ad'], ['maximalist', 'Maximalist']];
-  const MAKEUP_ITEMS = [['rl-ad-1', 'Ad'], ['rl-packaging', 'Packaging'], ['rl-ad-2', 'Ad'], ['rl-product', 'Product'], ['rl-ad-3', 'Ad'], ['rl-ad-4', 'Ad']];
-  const DIMENSIONS = [['sinta-carton', 'Sinta carton and case'], ['sinta-trio', 'Sinta Trio Set'], ['sinta-lipstick', 'Sinta lipstick'], ['nodwell-carton', 'Nodwell carton and jar'], ['nodwell-sachets', 'Nodwell sachets'], ['nodwell-jar', 'Nodwell jar'],
-                      ['takbo-box', 'Takbo shoe box'], ['takbo-bag', 'Takbo dust bag and tag'], ['takbo-shoe', 'Takbo Aero 1'], ['bantay-bag', 'Bantay kibble bag'], ['bantay-treats', 'Bantay pouch and can'], ['bantay-bowl', 'Bantay bowl'],
-                      ['ulan-carton', 'Ulan carton and bottle'], ['ulan-range', 'Ulan range'], ['ulan-bottle', 'Ulan serum bottle']];
-  const CTAS = [['rough-1', 'Rough', 'Barako Bros. coffee'], ['soft-1', 'Soft', 'Himbing pillow'], ['maximalist-1', 'Maximalist', 'Halo Halo soda'], ['modern-1', 'Modern', 'Agos earbuds'],
-                ['rough-2', 'Rough', 'Sili hot sauce'], ['soft-2', 'Soft', 'Lambing baby lotion'], ['maximalist-2', 'Maximalist', 'Bida Burger'], ['modern-2', 'Modern', 'Linya bottle']];
 
   const $ = id => document.getElementById(id);
   const rail = $('stashRail'), count = $('stashCount'), back = $('stashBack'), fwd = $('stashFwd');
-  let current = [], pos = 0, opener = null, active = 'makeup';
+  let current = [], pos = 0, opener = null, active = 'photoreal';
 
-  const itemsFor = tab => {
-    if (tab === 'dimensions') return DIMENSIONS.map(([s, name]) => ({ id: 'dim-' + s, title: name, kind: 'Dimensions', shape: 'wide' }));
-    if (tab === 'cta') return CTAS.map(([s, kind, name]) => ({ id: 'cta-' + s, title: name, kind, shape: '' }));
-    return (tab === 'makeup' ? MAKEUP_ITEMS : BRAND_ITEMS).map(([s, kind]) => ({ id: tab + '-' + s, title: TABS[tab].title + ' \u2014 ' + TABS[tab].product, kind, shape: s.startsWith('rl-') ? 'tall' : '' }));
-  };
+  const itemsFor = tab => TABS[tab].items.map(([id, title, kind, shape]) => ({ id, title, kind, shape: shape || '' }));
 
   function updateArrows() {
     back.disabled = rail.scrollLeft <= 2;
